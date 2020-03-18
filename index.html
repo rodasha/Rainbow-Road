@@ -1,58 +1,59 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>レインボー・ロード</title>
-  <style>
-    body{
-      display:flex;
-      flex-wrap:wrap;
-      width:900px;
-      margin:0;
-      background:skyblue;
-    }
-    .box{
-      width:90px;
-      height:90px;
-      margin:0;
-      overflow:auto;
-      background:white;
-    }
-    .red{
-      background:#DE6641;
-    }
-    .purple{
-      background:#A55B9A;
-    }
-    .indigo{
-      background:#5D5099;
-    }
-    .blue{
-      background:#4784BF;
-    }
-    .green{
-      background:#39A869;
-    }
-    .yellow{
-      background:#F2E55C;
-    }
-    .orange{
-      background:#E8AC51;
-    }
-    form{
-      text-align:right;
-    }
-    .rule{
-      flex-wrap:nowrap;
-    }
-  </style>
-</head>
-<body>
-  <script>
-    var mem,p,d,timer,arr=[],arr1=[];
-    for(i=0;i<100;i++)arr[i]=0;
-    for(i=0;i<100;i++){
-        const div=document.createElement('div');div.classList.add('box','red');
+  <head>
+    <meta charset="utf-8">
+    <title>レインボー・ロード</title>
+    <style>
+      body{
+        display:flex;
+        flex-wrap:wrap;
+        width:900px;
+        margin:0;
+        background:skyblue;  
+      }
+      .box{
+        width:90px;
+        height:90px;
+        margin:0;
+        overflow:auto;
+        background:white;
+      }
+      .red{
+        background:#DE6641;
+      }
+      .purple{
+        background:#A55B9A;
+      }
+      .indigo{
+        background:#5D5099;
+      }
+      .blue{
+        background:#4784BF;
+      }
+      .green{
+        background:#39A869;
+      }
+      .yellow{
+        background:#F2E55C;
+      }
+      .orange{
+        background:#E8AC51;
+      }
+      form{
+        text-align:right;
+      }
+      .rule{
+        flex-wrap:nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      var mem,p,d,timer,arr=[],arr1=[];
+      for(i=0;i<100;i++)arr[i]=0;
+      for(i=0;i<100;i++){
+        const div=document.createElement('div');
+        div.classList.add('box','red');
         div.addEventListener('click',()=>{
           if(div.classList.contains('orange'))div.classList.remove('orange','yellow','green','blue','indigo','purple');
           else if(div.classList.contains('yellow'))div.classList.add('orange');
@@ -61,93 +62,160 @@
           else if(div.classList.contains('indigo'))div.classList.add('blue');
           else if(div.classList.contains('purple'))div.classList.add('indigo');
           else div.classList.add('purple');
-      });
-      document.body.appendChild(div);
-    }
-    function Start(){
-      var num=document.menu.elements[1].value;mem=parseInt(document.menu.elements[1].value);
-      if(mem>0){
-      for(i=0;i<100;i++)arr[i]=0;
-      for(let i=0,j=(Math.floor(Math.random()*100)),k=4;i<num;i++){
-        switch(Math.floor(Math.random()*4)){
-          case 0:if(j%10<9&&k!=2){j++;k=0;arr[j]++;arr1[i]=j;}else i--;break;
-          case 1:if((j<90)&&(k!=3)){j+=10;k=1;arr[j]++;arr1[i]=j;}else i--;break;
-          case 2:if((j%10>0)&&(k!=0)){j--;k=2;arr[j]++;arr1[i]=j;}else i--;break;
-          default:if((j>9)&&(k!=1)){j-=10;k=3;arr[j]++;arr1[i]=j;}else i--;break;
-      }}
-      clearInterval(timer);timer=setInterval("cnt()",1000);Reset();
-    }}
-    function Reset(){
-      document.menu.elements[1].value=mem;p=100;d=4;
-      for(let i=0;i<100;i++){
-        const div=document.createElement('div'),div1=document.body.childNodes[i+2];div.classList.add('box','red');
-        switch(arr[i]%7){
-          case 0:break;
-          case 1:div.classList.add('orange');break;
-          case 2:div.classList.add('yellow');break;
-          case 3:div.classList.add('green');break;
-          case 4:div.classList.add('blue');break;
-          case 5:div.classList.add('indigo');break;
-          default:div.classList.add('purple');break;
+        });
+        document.body.appendChild(div);
+      }
+      function Start(){
+        var num=document.menu.elements[1].value;
+        mem=parseInt(document.menu.elements[1].value);
+        if(mem>0){
+          for(i=0;i<100;i++)arr[i]=0;
+          for(let i=0,j=(Math.floor(Math.random()*100)),k=4;i<num;i++){
+            switch(Math.floor(Math.random()*4)){
+              case 0:
+                if(j%10<9&&k!=2){
+                  j++;
+                  k=0;
+                  arr[j]++;
+                  arr1[i]=j;
+                }
+                else i--;
+                break;
+              case 1:
+                if(j<90&&k!=3){
+                  j+=10;
+                  k=1;
+                  arr[j]++;
+                  arr1[i]=j;
+                }else i--;
+                break;
+              case 2:
+                if(j%10>0&&k!=0){
+                  j--;
+                  k=2;
+                  arr[j]++;
+                  arr1[i]=j;
+                }else i--;
+                break;
+              default:
+                if(j>9&&k!=1){
+                  j-=10;
+                  k=3;
+                  arr[j]++;
+                  arr1[i]=j;
+                }else i--;
+                break;
+            }
+          }
+          clearInterval(timer);
+          timer=setInterval("cnt()",1000);
+          Reset();
         }
-        div.addEventListener('click',()=>{
-          if(p==100||(d!=2&&p==i+1)||(d!=3&&p==i+10)||(d!=0&&p==i-1)||(d!=1&&p==i-10)){
-            var num=parseInt(document.menu.elements[1].value)-1;
-            if(num>=0){
-              if(div.classList.contains('orange'))div.classList.remove('orange','yellow','green','blue','indigo','purple');
-              else if(div.classList.contains('yellow'))div.classList.add('orange');
-              else if(div.classList.contains('green'))div.classList.add('yellow');
-              else if(div.classList.contains('blue'))div.classList.add('green');
-              else if(div.classList.contains('indigo'))div.classList.add('blue');
-              else if(div.classList.contains('purple'))div.classList.add('indigo');
-              else div.classList.add('purple');
-              document.menu.elements[1].value=num;
-              switch(p){case i+1:d=0;break;case i+10:d=1;break;case i-1:d=2;break;case i-10:d=3;break;default:}p=i;
-          }}
-          else alert("一筆書きで動いてください。");
-      });
-      document.body.replaceChild(div,div1);
-    }}
-    function Answer(){
-      for(i=0;i<100;i++){
-        var k=0,arr2=[];
-        const div=document.body.childNodes[i+2];
-        for(j=0;j<mem;j++)if(i==arr1[j]){arr2[k]=j+1;k++;}
-        div.textContent=arr2;
-    }}
-    function cnt(){
-      var time=parseInt(document.menu.elements[0].value)+1,num=parseInt(document.menu.elements[1].value),f=0;
-      document.menu.elements[0].value=time;
-      for(j=0;j<100;j++){
-        var div=document.body.childNodes[j+2];
-        if(div.classList.contains('orange')||div.classList.contains('yellow')||div.classList.contains('green')||
-        div.classList.contains('blue')||div.classList.contains('indigo')||div.classList.contains('purple')){f=1;break;
-      }}
-      if(f==0){
-        alert('正解です!タイムは'+time+'秒でした！');
-        document.menu.elements[0].value=0;
+      }
+      function Reset(){
         document.menu.elements[1].value=mem;
-        Start();
-      }else if(num<=0){alert("残念,不正解です！");document.menu.elements[1].value=mem;Reset();
-    }}
-  </script>
-  <form name="menu">
-    <input type="text" style="text-align:right;" value="0" readonly>秒
-    <input type="text" style="text-align:right;" value="0">手
-    <input type="button" value="スタート" onclick="Start()">
-    <input type="button" value="リセット" onclick="Reset()">
-    <input type="button" value="正解" onclick="Answer()">
-  </form>
-  <div class="rule">
-    <h1>ルール</h1>
-    <p>①クリックするたび色が変わる10×10の盤があります。<font color="#DE6641">■</font>→<font color="#A55B9A">■</font>→<font color="#5D5099">■</font>→<font color="#4784BF">■</font>→<font color="#39A869">■</font>→<font color="#F2E55C">■</font>→<font color="#E8AC51">■</font>→<font color="#DE6641">■</font></p>
-    <p>②好きな数を入力し、スタートを押してください。その手数で解けるパズルを出力します。</p>
-    <p>③最初の１カ所は好きなところがクリックできますが、それ以降は縦横に隣接したパネルしかクリックできません。</p>
-    <p>④直前にいたタイルや今いるタイルをクリックすることはできません。</p>
-    <p>⑤既定の手数以内で盤を全て赤く変えられればゲームクリアです！</p>
-    <p>正解するたびに同じ手数で解けるパズルが出題されます。</p>
-    <p>手数が尽きてしまったり、リセットを押すと同じ問題の最初に戻ります。</p>
-    <p>正解を押すとそのタイルを何回目に踏めばいいか表示されます。</p>
-  </div>
-</body>
+        p=100;
+        d=4;
+        for(let i=0;i<100;i++){
+          const div=document.createElement('div'),div1=document.body.childNodes[i+2];
+          div.classList.add('box','red');
+          switch(arr[i]%7){
+            case 0:break;
+            case 1:div.classList.add('orange');break;
+            case 2:div.classList.add('yellow');break;
+            case 3:div.classList.add('green');break;
+            case 4:div.classList.add('blue');break;
+            case 5:div.classList.add('indigo');break;
+            default:div.classList.add('purple');break;
+          }
+          div.addEventListener('click',()=>{
+            if(p==100||(d!=2&&p==i+1)||(d!=3&&p==i+10)||(d!=0&&p==i-1)||(d!=1&&p==i-10)){
+              var num=parseInt(document.menu.elements[1].value)-1;
+              if(num>=0){
+                if(div.classList.contains('orange'))div.classList.remove('orange','yellow','green','blue','indigo','purple');
+                else if(div.classList.contains('yellow'))div.classList.add('orange');
+                else if(div.classList.contains('green'))div.classList.add('yellow');
+                else if(div.classList.contains('blue'))div.classList.add('green');
+                else if(div.classList.contains('indigo'))div.classList.add('blue');
+                else if(div.classList.contains('purple'))div.classList.add('indigo');
+                else div.classList.add('purple');
+                document.menu.elements[1].value=num;
+                switch(p){
+                  case i+1:d=0;break;
+                  case i+10:d=1;break;
+                  case i-1:d=2;break;
+                  case i-10:d=3;break;
+                  default:
+                }
+                p=i;
+              }
+            }
+            else alert("一筆書きで動いてください。");
+          });
+          document.body.replaceChild(div,div1);
+        }
+      }
+      function Answer(){
+        for(i=0;i<100;i++){
+          var k=0,arr2=[];
+          const div=document.body.childNodes[i+2];
+          for(j=0;j<mem;j++)
+            if(i==arr1[j]){
+              arr2[k]=j+1;
+              k++;
+            }
+          div.textContent=arr2;
+        }
+      }
+      function cnt(){
+        var time=parseInt(document.menu.elements[0].value)+1,num=parseInt(document.menu.elements[1].value),f=0;
+        document.menu.elements[0].value=time;
+        for(j=0;j<100;j++){
+          var div=document.body.childNodes[j+2];
+          if(div.classList.contains('orange')||div.classList.contains('yellow')||div.classList.contains('green')||
+             div.classList.contains('blue')||div.classList.contains('indigo')||div.classList.contains('purple')){
+            f=1;
+            break;
+          }
+        }
+        if(f==0){
+          alert('正解です!タイムは'+time+'秒でした！');
+          document.menu.elements[0].value=0;
+          document.menu.elements[1].value=mem;
+          Start();
+        }else if(num<=0){
+          alert("残念,不正解です！");
+          document.menu.elements[1].value=mem;
+          Reset();
+        }
+      }
+    </script>
+    <form name="menu">
+      <input type="text" style="text-align:right;" value="0" readonly>秒
+      <input type="text" style="text-align:right;" value="0">手
+      <input type="button" value="スタート" onclick="Start()">
+      <input type="button" value="リセット" onclick="Reset()">
+      <input type="button" value="正解" onclick="Answer()">
+    </form>
+    <div class="rule">
+      <h1>ルール</h1>
+      <p>①クリックするたび色が変わる10×10の盤があります。
+        <font color="#DE6641">■</font>→
+        <font color="#A55B9A">■</font>→
+        <font color="#5D5099">■</font>→
+        <font color="#4784BF">■</font>→
+        <font color="#39A869">■</font>→
+        <font color="#F2E55C">■</font>→
+        <font color="#E8AC51">■</font>→
+        <font color="#DE6641">■</font>
+      </p>
+      <p>②好きな数を入力し、スタートを押してください。その手数で解けるパズルを出力します。</p>
+      <p>③最初の１カ所は好きなところがクリックできますが、それ以降は縦横に隣接したパネルしかクリックできません。</p>
+      <p>④直前にいたタイルや今いるタイルをクリックすることはできません。</p>
+      <p>⑤既定の手数以内で盤を全て赤く変えられればゲームクリアです！</p>
+      <p>正解するたびに同じ手数で解けるパズルが出題されます。</p>
+      <p>手数が尽きてしまったり、リセットを押すと同じ問題の最初に戻ります。</p>
+      <p>正解を押すとそのタイルを何回目に踏めばいいか表示されます。</p>
+    </div>
+  </body>
 </html>
