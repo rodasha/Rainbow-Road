@@ -108,6 +108,7 @@
             }
           }
           clearInterval(timer);
+          document.menu.elements[0].value=0;
           timer=setInterval("cnt()",1000);
           Reset();
         }
@@ -180,7 +181,6 @@
         }
         if(f==0){
           alert('正解です!タイムは'+time+'秒でした！');
-          document.menu.elements[0].value=0;
           document.menu.elements[1].value=mem;
           Start();
         }else if(num<=0){
